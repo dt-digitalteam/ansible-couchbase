@@ -13,12 +13,12 @@
     --cluster-index-ramsize {{ couchbase_cluster_index_ramsize }}
   when: inventory_hostname == couchbase_master
 
-- name: Wait for the leader to become active
-  wait_for:
-      delay: 5
-    port: "{{ couchbase_port }}"
-  delegate_to: "{{ couchbase_master }}"
-  when: inventory_hostname != couchbase_master
+# - name: Wait for the leader to become active
+#  wait_for:
+#      delay: 5
+#    port: "{{ couchbase_port }}"
+#  delegate_to: "{{ couchbase_master }}"
+#  when: inventory_hostname != couchbase_master
 
 - name: Add couchbase server to the cluster
   uri:
