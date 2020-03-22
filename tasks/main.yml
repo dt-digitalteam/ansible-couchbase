@@ -5,11 +5,11 @@
 
 - name: Set the Couchbase download path
   set_fact:
-    couchbase_executable: "/tmp/couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}-debian10_amd64.deb"
+    couchbase_executable: "/tmp/couchbase-server.deb"
 
 - name: Download Couchbase Server
   get_url:
-    url: "https://packages.couchbase.com/releases/{{ couchbase_version }}/couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}-debian10_amd64.deb"
+    url: "{{ couchbase_debian_package_dl }}/{{ couchbase_debian_package }}"
     dest: "{{ couchbase_executable }}"
 
 - name: Install Couchbase Server

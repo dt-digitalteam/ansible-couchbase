@@ -11,6 +11,11 @@ galaxy_info:
      versions:
      - Buster
      - Stretch
+   - name: Ubuntu
+     versions:
+     - Bionic
+     - Xenial
+
   galaxy_tags:
     - system
     - keyvalue
