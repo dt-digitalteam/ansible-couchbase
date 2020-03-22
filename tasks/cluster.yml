@@ -1,0 +1,63 @@
+- name: Set Couchbase master node
+  set_fact:
+      couchbase_master: "{{ groups.couchbase[0] }}"
+
+- name: Initialize Couchbase nodes
+  shell: /opt/couchbase/bin/couchbase-cli cluster-init -c {{ inventory_hostname }} --cluster-username {{ couchbase_user }} --cluster-password {{ couchbase_password }}  --services data,index,query --cluster-ramsize {{ couchbase_cluster_ramsize }} --cluster-index-ramsize {{ couchbase_cluster_index_ramsize }}
+  when: inventory_hostname == couchbase_master
+
+# curl -u username=[admin-name]&password=[password]
+#   -X POST http://[localhost]:8091/pools/default
+#   -d memoryQuota=[value] -d indexMemoryQuota=[value]
+#- name: Set global cluster wide configuration
+#  uri:
+#    url: "http://{{ couchbase_master }}:{{ couchbase_port }}/node/controller/setupServices"
+#    method: POST
+#    user: "Administrator"
+#    password: "password"
+#    body: "services={{ couchbase_services|join(',') }}&memoryQuota={{ couchbase_memory_quota }}&indexMemoryQuota={{ couchbase_index_memory_quota }}"
+#    status_code: 200
+#    validate_certs: False
+#  when: inventory_hostname == couchbase_master
+
+- name: Wait for the leader to become active
+  wait_for:
+    delay: 5
+    port: "{{ couchbase_port }}"
+  delegate_to: "{{ couchbase_master }}"
+  when: inventory_hostname != couchbase_master
+
+# curl -v -X POST http://[localhost]:8091/settings/web
+#   -d password=[password]
+#   -d username=[admin-name]
+#- name: Setup admin username and password
+#  uri:
+#    url: "http://{{ inventory_hostname }}:{{ couchbase_port }}/settings/web"
+#    method: POST
+#    body: "username={{ couchbase_user }}&password={{ couchbase_password }}&port={{ couchbase_port }}"
+#    status_code: 200
+#    validate_certs: no
+
+#  curl -u cluster-username:cluster-password localhost:8091/controller/addNode\
+#            -d "hostname=192.168.0.68&user=node-username&password=node-password&services=n1ql"
+#
+- name: Add couchbase server to the cluster
+  uri:
+    url: "http://{{ couchbase_master }}:{{ couchbase_port }}/controller/addNode"
+    method: POST
+    user: "{{ couchbase_user }}"
+    password: "{{ couchbase_password }}"
+    body: "hostname={{ inventory_hostname }}&user={{ couchbase_user }}&password={{ couchbase_password }}&services={{ couchbase_services|join(',') }}"
+    status_code: 200
+    validate_certs: False
+  when: inventory_hostname != couchbase_master
+
+- name: Wait for new node to join the cluster
+  pause:
+    seconds: 10
+  when: inventory_hostname != couchbase_master
+
+- name: Rebalance cluster
+  shell: "/opt/couchbase/bin/couchbase-cli rebalance -c {{ couchbase_master }}:{{ couchbase_port }} --username={{ couchbase_user }} --password={{ couchbase_password }}"
+  delegate_to: "{{ couchbase_master }}"
+  when: inventory_hostname != couchbase_master

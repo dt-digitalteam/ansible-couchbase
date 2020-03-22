@@ -1,0 +1,26 @@
+galaxy_info:
+  author: Evan Briones (modified by Digitalteam)
+  description: Ansible role to install and configure a Couchbase cluster.
+
+  license: MIT
+
+  min_ansible_version: 2.9.3
+
+  platforms:
+   - name: Debian
+     versions:
+     - 10
+     - 9
+   - name: Ubuntu
+     versions:
+     - 10
+  galaxy_tags:
+    - system
+    - key-value
+    - cluster
+    - n1ql
+    - index
+    - couchbase
+    - infrastructure
+
+dependencies: []

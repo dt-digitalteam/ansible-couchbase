@@ -1,0 +1,12 @@
+---
+couchbase_version: 6.5.0
+couchbase_edition: enterprise
+couchbase_path: /var/lib/couchbase/
+couchbase_index_path: var/lib/couchbase/index
+couchbase_port: 8091
+couchbase_services:
+    - kv
+couchbase_user: Administrator
+couchbase_password: password
+couchbase_cluster_ramsize: 512
+couchbase_cluster_index_ramsize: 256

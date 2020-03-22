@@ -1,0 +1,52 @@
+---
+- name: Ensure all nodes are part of the Couchbase group
+  fail: msg="Expected host to be part of the Couchbase group"
+  when: "'couchbase' not in group_names"
+
+- name: Set the Couchbase download path
+  set_fact:
+    couchbase_executable: "/tmp/couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}-debian10_amd64.deb"
+
+- name: Download Couchbase Server
+  get_url:
+    url: "https://packages.couchbase.com/releases/{{ couchbase_version}}/couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}-debian10_amd64.deb"
+    dest: "{{ couchbase_executable }}"
+
+- name: Install Couchbase Server
+  apt:
+    deb: '{{ couchbase_executable }}'
+    state: present
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: 'yes'
+    update_cache: yes
+
+- name: Create Couchbase path
+  file:
+    path: "{{ couchbase_path }}"
+    state: directory
+    recurse: yes
+    owner: couchbase
+    group: couchbase
+    mode: 0770
+
+- name: Create Couchbase index path
+  file:
+    path: "{{ couchbase_index_path }}"
+    state: directory
+    recurse: yes
+    owner: couchbase
+    group: couchbase
+    mode: 0770
+
+- name: Add Couchbase profile.d script
+  copy: src=couchbase.sh dest=/etc/profile.d/couchbase.sh
+
+- name: Wait for nodes to become active
+  pause:
+    seconds: 10
+
+
+
+- include: cluster.yml
