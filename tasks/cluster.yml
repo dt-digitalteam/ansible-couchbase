@@ -32,12 +32,12 @@
         &password={{ couchbase_password }}
         &services={{ couchbase_services|join(',') }}"
       status_code: 200
-      validate_certs: False
+      validate_certs: false
   when: inventory_hostname != couchbase_master
 
 - name: Wait for new node to join the cluster
   pause:
-    seconds: 10
+      seconds: 10
   when: inventory_hostname != couchbase_master
 
 - name: Rebalance cluster
