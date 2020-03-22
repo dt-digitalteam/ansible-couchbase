@@ -33,4 +33,5 @@ Digitalteam (www.digitalteam.fr) based on "Evan Briones" roles.
 
 Debian and Ubuntu Version
 
-Please feel free to PR if needed
+Please feel free to PR if needed.
+
