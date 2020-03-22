@@ -9,4 +9,4 @@
       when: ansible_os_family == 'Debian'
 
   roles:
-    - role: dt_digitalteam.ansible_couchbase
+    - role: ansible_couchbase
