@@ -30,10 +30,10 @@ install:
 
 before_script:
 
-  - pwd
-  - cd ../
-  - ls -lah
-  - cd dt_digitalteam.ansible_couchbase
+#  - pwd
+#  - cd ../
+#  - ls -lah
+#  - cd ansible_couchbase
 
 script:
    - molecule test
