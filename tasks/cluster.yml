@@ -15,21 +15,21 @@
 
 - name: Wait for the leader to become active
   wait_for:
-    delay: 5
+      delay: 5
     port: "{{ couchbase_port }}"
   delegate_to: "{{ couchbase_master }}"
   when: inventory_hostname != couchbase_master
 
 - name: Add couchbase server to the cluster
   uri:
-      url: |
+      url: >-
         "http://{{ couchbase_master }}:{{ couchbase_port }}/controller/addNode"
       method: POST
       user: "{{ couchbase_user }}"
       password: "{{ couchbase_password }}"
-      body: |
-        "hostname={{ inventory_hostname }}&user={{ couchbase_user }}\
-        &password={{ couchbase_password }}\
+      body: >-
+        "hostname={{ inventory_hostname }}&user={{ couchbase_user }}
+        &password={{ couchbase_password }}
         &services={{ couchbase_services|join(',') }}"
       status_code: 200
       validate_certs: False
@@ -42,7 +42,8 @@
 
 - name: Rebalance cluster
   shell: |
-    /opt/couchbase/bin/couchbase-cli rebalance -c {{ couchbase_master }}:{{ couchbase_port }} \
+    /opt/couchbase/bin/couchbase-cli rebalance \
+    -c {{ couchbase_master }}:{{ couchbase_port }} \
     --username={{ couchbase_user }} \
     --password={{ couchbase_password }}
   delegate_to: "{{ couchbase_master }}"

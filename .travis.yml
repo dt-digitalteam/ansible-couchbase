@@ -9,10 +9,10 @@ env:
   global:
     - ROLE_NAME: ansible_couchbase
   matrix:
-    #- MOLECULE_DISTRO: ubuntu1804
-    #- MOLECULE_DISTRO: ubuntu1604
+    # - MOLECULE_DISTRO: ubuntu1804
+    # - MOLECULE_DISTRO: ubuntu1604
     - MOLECULE_DISTRO: debian9
-    #- MOLECULE_DISTRO: debian10
+    # - MOLECULE_DISTRO: debian10
 
 # Install ansible
 addons:

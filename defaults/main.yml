@@ -1,6 +1,6 @@
 ---
 couchbase_version: 6.5.0
-#edition is either community or enterprise
+# edition is either community or enterprise
 couchbase_edition: enterprise
 couchbase_path: /var/lib/couchbase/
 couchbase_index_path: var/lib/couchbase/index
@@ -11,6 +11,8 @@ couchbase_user: Administrator
 couchbase_password: password
 couchbase_cluster_ramsize: 512
 couchbase_cluster_index_ramsize: 256
-couchbase_debian_package: >
-  couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}-{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }}_amd64.deb
+couchbase_debian_package: >-
+  couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}
+  -{{ ansible_distribution|lower }}{{ ansible_distribution_major_version }}
+  _amd64.deb
 couchbase_debian_package_dl: 'http://packages.couchbase.com/releases/{{ couchbase_version }}'
