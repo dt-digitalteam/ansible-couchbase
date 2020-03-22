@@ -46,3 +46,4 @@ script:
 notifications:
   email: tech@digitalteam.fr
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+
