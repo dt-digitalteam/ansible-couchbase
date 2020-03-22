@@ -9,14 +9,11 @@ galaxy_info:
   platforms:
    - name: Debian
      versions:
-     - 10
-     - 9
-   - name: Ubuntu
-     versions:
-     - 10
+     - Buster
+     - Stretch
   galaxy_tags:
     - system
-    - key-value
+    - keyvalue
     - cluster
     - n1ql
     - index

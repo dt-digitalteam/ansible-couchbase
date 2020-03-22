@@ -9,7 +9,7 @@
 
 - name: Download Couchbase Server
   get_url:
-    url: "https://packages.couchbase.com/releases/{{ couchbase_version}}/couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}-debian10_amd64.deb"
+    url: "https://packages.couchbase.com/releases/{{ couchbase_version }}/couchbase-server-{{ couchbase_edition }}_{{ couchbase_version }}-debian10_amd64.deb"
     dest: "{{ couchbase_executable }}"
 
 - name: Install Couchbase Server
@@ -46,7 +46,5 @@
 - name: Wait for nodes to become active
   pause:
     seconds: 10
-
-
 
 - include: cluster.yml
