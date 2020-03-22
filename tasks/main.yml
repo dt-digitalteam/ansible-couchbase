@@ -20,13 +20,13 @@
 - name: Update all packages to the latest version
   apt:
     upgrade: 'yes'
-    update_cache: yes
+    update_cache: true
 
 - name: Create Couchbase path
   file:
     path: "{{ couchbase_path }}"
     state: directory
-    recurse: yes
+    recurse: true
     owner: couchbase
     group: couchbase
     mode: 0770
@@ -35,7 +35,7 @@
   file:
     path: "{{ couchbase_index_path }}"
     state: directory
-    recurse: yes
+    recurse: true
     owner: couchbase
     group: couchbase
     mode: 0770

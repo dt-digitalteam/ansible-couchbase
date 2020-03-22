@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Evan Briones (modified by Digitalteam)
   description: Ansible role to install and configure a Couchbase cluster.
@@ -7,14 +8,14 @@ galaxy_info:
   min_ansible_version: 2.9.3
 
   platforms:
-   - name: Debian
-     versions:
-     - Buster
-     - Stretch
+    - name: Debian
+      versions:
+      - Buster
+      - Stretch
    - name: Ubuntu
-     versions:
-     - Bionic
-     - Xenial
+      versions:
+      - Bionic
+      - Xenial
 
   galaxy_tags:
     - system
