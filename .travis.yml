@@ -1,7 +1,7 @@
 ---
 language: python
-python:
-  - 3.5
+# python:
+#   - 3.5
 service: docker
 
 # Use the new container infrastructure
@@ -11,7 +11,7 @@ env:
   global:
     - ROLE_NAME: ansible_couchbase
   matrix:
-      - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: ubuntu1804
     # - MOLECULE_DISTRO: ubuntu1604
     # - MOLECULE_DISTRO: debian9
     # - MOLECULE_DISTRO: debian10
