@@ -23,3 +23,19 @@ provisioner:
       hosts: hosts
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+
+scenario:
+  name: default
+  test_sequence:
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+#  ─ idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
