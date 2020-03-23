@@ -1,0 +1,7 @@
+---
+couchbase_dl_version: >-
+  {{ couchbase_version }}-{{ ansible_distribution|lower }}{{ ansible_distribution_version }}
+couchbase_debian_package: >-
+  couchbase-server-{{ couchbase_edition }}_{{ couchbase_dl_version }}_amd64.deb
+couchbase_debian_package_dl: >-
+  http://packages.couchbase.com/releases/{{ couchbase_version }}

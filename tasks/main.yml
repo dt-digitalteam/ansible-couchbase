@@ -1,4 +1,8 @@
 ---
+# Variable Setup
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_distribution }}.yml"
+
 - name: Ensure all nodes are part of the Couchbase group
   fail: msg="Expected host to be part of the Couchbase group"
   when: "'couchbase' not in group_names"
