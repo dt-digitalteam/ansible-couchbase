@@ -11,7 +11,7 @@
     --services data,index,query \
     --cluster-ramsize {{ couchbase_cluster_ramsize }} \
     --cluster-index-ramsize {{ couchbase_cluster_index_ramsize }}
-  ignore_errors: true 
+  ignore_errors: true
   when: inventory_hostname == couchbase_master
 
 # - name: Wait for the leader to become active
