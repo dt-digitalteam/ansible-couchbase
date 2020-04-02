@@ -11,6 +11,7 @@
     --services data,index,query \
     --cluster-ramsize {{ couchbase_cluster_ramsize }} \
     --cluster-index-ramsize {{ couchbase_cluster_index_ramsize }}
+  ignore_errors: yes
   when: inventory_hostname == couchbase_master
 
 # - name: Wait for the leader to become active
@@ -31,7 +32,10 @@
         "hostname={{ inventory_hostname }}&user={{ couchbase_user }}
         &password={{ couchbase_password }}
         &services={{ couchbase_services|join(',') }}"
-      status_code: 200
+      status_code:
+        - 200
+        - 201
+        - 400
       validate_certs: false
   when: inventory_hostname != couchbase_master
 
